@@ -79,6 +79,47 @@ class Graph {
                 this.DFSUtil(get_elem, visited);
         }
     }
+
+    // using DFS
+    isCycle() {
+        var vertexs = [...this.AdjList.keys()];
+
+        //visited array
+        var visited = {};
+        //do DFS, from each vertex
+        if(this.isCycleUtil(vertexs[0], visited, -1)){
+            return true;
+        }
+
+        return false;
+    }
+
+    isCycleUtil(currVertex, visited, parent){
+
+        //add this vertex to visited vertex
+        visited[currVertex] = true;
+        var adjList = this.AdjList.get(currVertex);
+
+        //visit neighbors except its direct parent
+        for (var i = 0; i < adjList.length; i++) {
+            var vertex = adjList[i];
+            //check the adjacent vertex from current vertex
+            if(vertex != parent) {
+                //if destination vertex is not its direct parent then
+                if(visited[vertex]){
+                    //if here means this destination vertex is already visited
+                    //means cycle has been detected
+                    return true;
+                } else{
+                    //recursion from destination node
+                    if (this.isCycleUtil(vertex, visited, currVertex)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
 
 module.exports.Graph = Graph;
@@ -109,6 +150,11 @@ var example = function() {
 
     console.log("DFS");
     g.dfs('A');
+
+    console.log('is Cycle')
+    console.log(g.isCycle())
+
+
 }
 
 
