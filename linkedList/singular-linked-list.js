@@ -1,3 +1,5 @@
+// https://www.geeksforgeeks.org/implementation-linkedlist-javascript/
+
 class Node {
     constructor(value) {
         this.value = value;
