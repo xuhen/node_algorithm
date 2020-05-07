@@ -107,6 +107,20 @@ class BinarySearchTree {
             return node;
         }
     }
+    maxDepth(node) {
+        if (node === null) {
+            return 0;
+        } else {
+            var lDepth = this.maxDepth(node.left);
+            var rDepth = this.maxDepth(node.right);
+
+            if (lDepth > rDepth) {
+                return lDepth + 1;
+            } else {
+                return rDepth + 1;
+            }
+        }
+    }
 }
 
 
