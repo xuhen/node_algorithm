@@ -107,6 +107,7 @@ class BinarySearchTree {
             return node;
         }
     }
+    // 递归求深度
     maxDepth(node) {
         if (node === null) {
             return 0;
@@ -118,6 +119,33 @@ class BinarySearchTree {
                 return lDepth + 1;
             } else {
                 return rDepth + 1;
+            }
+        }
+    }
+    // 非递归求深度
+    maxLevel(node) {
+        if (node === null) {
+            return 0;
+        }
+        var queue = [];
+        var height = 0;
+        queue.push(node);
+
+        while (true) {
+            var nodeCount = queue.length;
+            if (nodeCount === 0) {
+                return height;
+            }
+            height++;
+            while (nodeCount > 0) {
+                var newNode = queue.shift();
+                if (newNode.left !== null) {
+                    queue.push(newNode.left);
+                }
+                if (newNode.right !== null) {
+                    queue.push(newNode.right);
+                }
+                nodeCount--;
             }
         }
     }
@@ -143,5 +171,7 @@ bst.remove(22);
 var root = bst.getRootNode();
 var r = bst.search(root, 22);
 
+var result = bst.maxLevel(root);
 
-console.log(bst, r);
+
+console.log(bst, r, result);
